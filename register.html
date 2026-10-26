@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your V-Cafe account to enjoy exclusive offers, faster reservations, and loyalty rewards.">
+    <title>The V-Cafe | Register & Join Coffee Club</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0a00 0%, #2d1408 40%, #1a0a00 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .auth-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+
+        .auth-left {
+            background: linear-gradient(160deg, #2d1408 0%, #5c2d0e 50%, #2d1408 100%);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-left::before {
+            content: "☕";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            bottom: -30px;
+            right: -30px;
+        }
+
+        .auth-left-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #D4AF37;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .auth-left h2 {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .auth-left p {
+            color: #D6C7B8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .perks-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .perks-list li {
+            color: #E8D5C0;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .perks-list li span.icon {
+            background: rgba(212,175,55,0.15);
+            color: #D4AF37;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+
+        .auth-right {
+            padding: 45px 40px;
+            background: #fff;
+        }
+
+        .auth-right h3 {
+            font-family: 'Playfair Display', serif;
+            color: #2d1408;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .auth-right .subtitle {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        .auth-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .auth-form .input-group {
+            margin-bottom: 16px;
+        }
+
+        .auth-form label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-form input, .auth-form select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e8e0d8;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #fafafa;
+            transition: all 0.25s;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        .auth-form input:focus, .auth-form select:focus {
+            border-color: #D4AF37;
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+        }
+
+        .auth-form input.error {
+            border-color: #e74c3c;
+        }
+
+        .error-msg {
+            font-size: 0.78rem;
+            color: #e74c3c;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: #eee;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: all 0.3s;
+            width: 0%;
+        }
+
+        .strength-text {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: #888;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #D4AF37, #b8941f);
+            color: #1a0a00;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.4);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            text-align: center;
+            color: #bbb;
+            font-size: 0.85rem;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e5e5e5;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after  { right: 0; }
+
+        .login-link {
+            text-align: center;
+            font-size: 0.88rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .login-link a {
+            color: #D4AF37;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-link a:hover { text-decoration: underline; }
+
+        /* Success overlay */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-overlay.show { display: flex; }
+
+        .success-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            animation: popIn 0.4s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            animation: bounce 0.6s ease 0.3s both;
+        }
+
+        @keyframes bounce {
+            0%   { transform: scale(0); }
+            60%  { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .success-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #2d1408;
+            margin-bottom: 8px;
+        }
+
+        .success-box p { color: #666; margin-bottom: 24px; font-size: 0.95rem; }
+        .success-box .user-id { background: #FFF9F0; border: 1px dashed #D4AF37; padding: 10px 16px; border-radius: 8px; font-weight: 700; color: #5c2d0e; font-size: 0.9rem; margin-bottom: 24px; }
+
+        @media (max-width: 640px) {
+            .auth-card { grid-template-columns: 1fr; }
+            .auth-left { display: none; }
+            .auth-form .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header-main">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☕</span>
+                <span>The V-Cafe</span>
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu & Order</a></li>
+                <li><a href="reservation.html" class="nav-link">Table Reservation</a></li>
+                <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="register.html" class="nav-link active">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+
+            <!-- Left Panel -->
+            <div class="auth-left">
+                <div class="auth-left-logo">☕ The V-Cafe</div>
+                <h2>Join the Coffee Club</h2>
+                <p>Create your account and unlock exclusive member benefits at Coimbatore's finest café experience.</p>
+                <ul class="perks-list">
+                    <li><span class="icon">🎁</span> 15% off first reservation</li>
+                    <li><span class="icon">⭐</span> Loyalty points on every visit</li>
+                    <li><span class="icon">📅</span> Priority table booking</li>
+                    <li><span class="icon">☕</span> Free birthday coffee</li>
+                    <li><span class="icon">📧</span> Exclusive member offers</li>
+                </ul>
+            </div>
+
+            <!-- Right Panel: Form -->
+            <div class="auth-right">
+                <h3>Create Account</h3>
+                <p class="subtitle">Fill in your details to get started</p>
+
+                <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)" novalidate>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="reg_name">Full Name *</label>
+                            <input type="text" id="reg_name" placeholder="e.g. Arun Kumar" required minlength="3" maxlength="50">
+                            <div class="error-msg" id="err_name">Please enter your full name (min 3 chars)</div>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg_phone">Phone Number *</label>
+                            <input type="tel" id="reg_phone" placeholder="9876543210" pattern="[0-9]{10}" maxlength="10" required>
+                            <div class="error-msg" id="err_phone">Enter a valid 10-digit mobile number</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="reg_email">Email Address *</label>
+                        <input type="email" id="reg_email" placeholder="you@example.com" required>
+                        <div class="error-msg" id="err_email">Please enter a valid email address</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="reg_dob">Date of Birth</label>
+                            <input type="date" id="reg_dob" max="2010-01-01">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg_gender">Gender</label>
+                            <select id="reg_gender">
+                                <option value="">-- Select --</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="reg_password">Password *</label>
+                        <input type="password" id="reg_password" placeholder="Create a strong password" required minlength="6" oninput="checkStrength(this.value)">
+                        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                        <div class="strength-text" id="strengthText">Password strength</div>
+                        <div class="error-msg" id="err_password">Password must be at least 6 characters</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="reg_confirm">Confirm Password *</label>
+                        <input type="password" id="reg_confirm" placeholder="Re-enter your password" required>
+                        <div class="error-msg" id="err_confirm">Passwords do not match</div>
+                    </div>
+
+                    <div class="input-group" style="display:flex;align-items:flex-start;gap:10px;margin-top:4px;">
+                        <input type="checkbox" id="reg_terms" required style="width:auto;margin-top:3px;flex-shrink:0;">
+                        <label for="reg_terms" style="font-size:0.82rem;text-transform:none;letter-spacing:0;color:#555;font-weight:400;cursor:pointer;">
+                            I agree to The V-Cafe <a href="#" style="color:#D4AF37;">Terms of Service</a> and <a href="#" style="color:#D4AF37;">Privacy Policy</a> *
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-register" id="submitBtn">
+                        ☕ Create My Account
+                    </button>
+
+                    <div class="divider">or</div>
+
+                    <div class="login-link">
+                        Already a member? <a href="login.html">Sign In →</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-box">
+            <div class="success-icon">🎉</div>
+            <h3>Welcome to The V-Cafe!</h3>
+            <p>Your account has been created successfully. Your unique Member ID:</p>
+            <div class="user-id" id="displayUserId">USR-...</div>
+            <p style="font-size:0.85rem;color:#888;margin-bottom:20px;">Screenshot this ID for future reference.</p>
+            <a href="index.html" style="display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#D4AF37,#b8941f);color:#1a0a00;font-weight:700;border-radius:10px;text-decoration:none;">Go to Homepage →</a>
+        </div>
+    </div>
+
+    <footer class="footer-main">
+        <div class="footer-bottom">
+            <p>&copy; 2026 The V-Cafe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        function checkStrength(val) {
+            const fill = document.getElementById("strengthFill");
+            const text = document.getElementById("strengthText");
+            let score = 0;
+            if (val.length >= 6)  score++;
+            if (val.length >= 10) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            const levels = [
+                { pct: "0%",   color: "#eee",    label: "" },
+                { pct: "25%",  color: "#e74c3c", label: "Weak" },
+                { pct: "50%",  color: "#e67e22", label: "Fair" },
+                { pct: "75%",  color: "#f1c40f", label: "Good" },
+                { pct: "88%",  color: "#2ecc71", label: "Strong" },
+                { pct: "100%", color: "#27ae60", label: "Very Strong ✓" }
+            ];
+            const level = levels[score] || levels[0];
+            fill.style.width = level.pct;
+            fill.style.background = level.color;
+            text.textContent = level.label;
+            text.style.color = level.color;
+        }
+
+        function showError(id, show) {
+            document.getElementById(id).style.display = show ? "block" : "none";
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+
+            const name     = document.getElementById("reg_name").value.trim();
+            const phone    = document.getElementById("reg_phone").value.trim();
+            const email    = document.getElementById("reg_email").value.trim();
+            const dob      = document.getElementById("reg_dob").value;
+            const gender   = document.getElementById("reg_gender").value;
+            const password = document.getElementById("reg_password").value;
+            const confirm  = document.getElementById("reg_confirm").value;
+            const terms    = document.getElementById("reg_terms").checked;
+
+            // Validation
+            let valid = true;
+
+            if (name.length < 3) { showError("err_name", true); valid = false; }
+            else showError("err_name", false);
+
+            if (!/^[0-9]{10}$/.test(phone)) { showError("err_phone", true); valid = false; }
+            else showError("err_phone", false);
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError("err_email", true); valid = false; }
+            else showError("err_email", false);
+
+            if (password.length < 6) { showError("err_password", true); valid = false; }
+            else showError("err_password", false);
+
+            if (password !== confirm) { showError("err_confirm", true); valid = false; }
+            else showError("err_confirm", false);
+
+            if (!terms) { alert("Please agree to the Terms of Service to continue."); valid = false; }
+
+            if (!valid) return;
+
+            const btn = document.getElementById("submitBtn");
+            btn.disabled = true;
+            btn.textContent = "Creating Account...";
+
+            const payload = { name, phone, email, dob, gender, password };
+
+            try {
+                const res    = await fetch("http://localhost:5000/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+
+                if (!res.ok) throw new Error(result.message || "Registration failed");
+
+                document.getElementById("displayUserId").textContent = result.userId;
+                document.getElementById("successOverlay").classList.add("show");
+                document.getElementById("registerForm").reset();
+                checkStrength("");
+
+            } catch (err) {
+                alert("❌ " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "☕ Create My Account";
+            }
+        }
+    </script>
+</body>
+</html>

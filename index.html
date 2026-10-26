@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="The V-Cafe - Traditional Tamil Nadu Filter Kaapi, Local Snacks & Warm Ambiance in Coimbatore. Reserve your table online or explore our menu.">
+    <title>The V-Cafe | Home & South Indian Flavors</title>
+
+    <!-- External Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- External Master CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Demonstration of INTERNAL CSS requirement -->
+    <style>
+        /* Internal CSS Rule for Page-Specific Hero Badge & Floating Callout */
+        .home-badge-pill {
+            background-color: rgba(212, 175, 55, 0.2);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .special-highlight-card {
+            border-left: 4px solid var(--accent-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .special-highlight-card:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HTML5 Semantic Header & Flexbox Navigation -->
+    <header class="header-main">
+        <nav class="navbar" id="mainNavbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☕</span>
+                <span>The V-Cafe</span>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Toggle navigation menu" onclick="toggleMenu()">
+                ☰
+            </button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu & Order</a></li>
+                <li><a href="reservation.html" class="nav-link">Table Reservation</a></li>
+                <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="reservation.html" class="nav-link btn-nav-cta">Book Table</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HTML5 Semantic Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <span class="home-badge-pill">Welcome to Coimbatore's Premier Coffee House</span>
+                <h1 class="hero-title">Crafting Moments, One Sip at a Time.</h1>
+                <p class="hero-subtext">Experience traditional South Indian filter kaapi, delicious regional snacks, and
+                    a cozy warm ambiance designed for community, conversation, and comfort.</p>
+
+                <div class="cta-group">
+                    <a href="menu.html" class="btn btn-accent">
+                        <span>Explore Our Menu</span>
+                        <span>➔</span>
+                    </a>
+                    <a href="reservation.html" class="btn btn-outline">
+                        <span>Reserve a Table</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section using CSS Grid Layout -->
+        <section class="section-padding" style="background-color: var(--primary-dark); color: #FFFFFF;">
+            <div class="container">
+                <div class="grid-4col">
+                    <article class="stat-card">
+                        <div class="stat-number">12+</div>
+                        <div class="stat-label">Years of Coffee Craftsmanship</div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Master Baristas & Chefs</div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-number">40+</div>
+                        <div class="stat-label">Artisanal Blends & Pastries</div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Happy Guests Daily</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Story Section -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="grid-2col" style="align-items: center;">
+                    <div>
+                        <!-- Demonstration of INLINE CSS requirement -->
+                        <span class="section-subtitle" style="color: #D4AF37; font-weight: 800;">Our Coffee
+                            Journey</span>
+                        <h2 class="section-title">Where Tradition Meets Artisanal Perfection</h2>
+                        <p>Founded with a passion for authenticity, The V-Cafe brings the rich heritage of Tamil Nadu's traditional filter kaapi and regional snacks to food lovers in a warm, welcoming space.</p>
+                        <p>Every morning, our cooks prepare fresh batters and brew fresh decoctions to ensure that every cup of filter kaapi and every plate of hot dosa or vada is served to perfection.</p>
+
+                        <!-- Inline CSS highlight box -->
+                        <div class="special-highlight-card"
+                            style="background-color: #FAF4ED; padding: 18px 24px; border-radius: 8px; margin-top: 20px;">
+                            <strong style="color: #4A2E1B; font-size: 1.1rem; display: block; margin-bottom: 6px;">
+                                🌟 Daily Chef Special
+                            </strong>
+                            <p style="margin: 0; font-size: 0.95rem; color: #5C4A3E;">
+                                Pair your handcrafted Chennai Filter Kaapi with our signature crispy Ghee Roast Dosa
+                                served piping hot with fresh chutneys!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <figure
+                            style="position: relative; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-hover);">
+                            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=80"
+                                alt="Traditional coffee brewing at The V-Cafe">
+                            <figcaption
+                                style="position: absolute; bottom: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #FFFFFF; width: 100%; padding: 16px 20px; font-size: 0.9rem;">
+                                Barista craft in action: Hand-poured latte art using organic milk.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Signature Menu Preview -->
+        <section class="section-padding"
+            style="background-color: #F7EFF5; background-image: radial-gradient(#E8D8CD 1px, transparent 1px); background-size: 20px 20px;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Handcrafted Favorites</span>
+                    <h2 class="section-title">Signature Menu Highlights</h2>
+                    <p>Sample a selection of our most loved drinks and handcrafted savory bites.</p>
+                </div>
+
+                <div class="grid-3col">
+                    <article class="menu-card">
+                        <div class="card-img-wrapper">
+                            <img src="https://themadrasfiltercoffee.com/wp-content/uploads/2024/05/Best-Coffee-Franchise-In-India.jpg"
+                                alt="Chennai Filter Kaapi">
+                            <span class="badge-tag">Bestseller</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Chennai Filter Kaapi</h3>
+                                <span class="card-price">₹35</span>
+                            </div>
+                            <p class="card-desc">Dark roasted chicory-blend coffee slow-dripped and frothed with thick hot milk in a traditional brass tumbler.</p>
+                            <a href="menu.html" class="btn btn-primary" style="width: 100%;">Order Now</a>
+                        </div>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80"
+                                alt="Ghee Roast Dosa">
+                            <span class="badge-tag" style="background-color: #27AE60;">Fresh Made</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Ghee Roast Dosa</h3>
+                                <span class="card-price">₹100</span>
+                            </div>
+                            <p class="card-desc">Crispy and golden fermented rice crepe cooked with pure aromatic ghee, served with coconut chutney and sambar.</p>
+                            <a href="menu.html" class="btn btn-primary" style="width: 100%;">Order Now</a>
+                        </div>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-img-wrapper">
+                            <img src="https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg"
+                                alt="Medu Vada Platter">
+                            <span class="badge-tag">Chef Choice</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Medu Vada (Set of 2)</h3>
+                                <span class="card-price">₹60</span>
+                            </div>
+                            <p class="card-desc">Crispy, golden-fried savory lentil donuts flavored with black pepper and curry leaves, served with hot sambar.</p>
+                            <a href="menu.html" class="btn btn-primary" style="width: 100%;">Order Now</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="menu.html" class="btn btn-accent">View Full Menu & Prices ➔</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Guest Experience</span>
+                    <h2 class="section-title">Loved by Coffee Enthusiasts</h2>
+                </div>
+
+                <div class="grid-3col">
+                    <article
+                        style="background: #FFFFFF; padding: 28px; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); border: 1px solid var(--border-color);">
+                        <div style="color: #F1C40F; margin-bottom: 12px;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-style: italic;">"The best mocha in Coimbatore! The ambiance is cozy, wifi is
+                            fast, and the staff makes you feel like family every morning."</p>
+                        <strong style="color: var(--primary-dark); display: block; margin-top: 10px;">— Priya
+                            Sundaram</strong>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">Verified Customer</span>
+                    </article>
+
+                    <article
+                        style="background: #FFFFFF; padding: 28px; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); border: 1px solid var(--border-color);">
+                        <div style="color: #F1C40F; margin-bottom: 12px;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-style: italic;">"We booked a private table reservation for a birthday
+                            celebration. Flawless service, delicious food, and great coffee!"</p>
+                        <strong style="color: var(--primary-dark); display: block; margin-top: 10px;">— Rajesh
+                            Kumar</strong>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">Local Guide</span>
+                    </article>
+
+                    <article
+                        style="background: #FFFFFF; padding: 28px; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); border: 1px solid var(--border-color);">
+                        <div style="color: #F1C40F; margin-bottom: 12px;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-style: italic;">"The online table booking was smooth and easy. Highly recommend
+                            trying their Belgian chocolate pastries."</p>
+                        <strong style="color: var(--primary-dark); display: block; margin-top: 10px;">— Ananya
+                            Roy</strong>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">Food Blogger</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Call to Action Banner -->
+        <section
+            style="background: linear-gradient(135deg, #4A2E1B, #2C1A0E); color: #FFFFFF; padding: 60px 24px; text-align: center;">
+            <div class="container">
+                <h2 style="color: var(--accent-gold); font-size: 2.4rem; margin-bottom: 14px;">Ready to Experience The V-Cafe?</h2>
+                <p style="color: #E6D8CA; max-width: 600px; margin: 0 auto 28px auto;">Reserve your favorite table in
+                    advance or browse our full traditional menu online.</p>
+                <div class="cta-group">
+                    <a href="reservation.html" class="btn btn-accent">Reserve Your Table Now</a>
+                    <a href="contact.html" class="btn btn-outline">Contact & Directions</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- HTML5 Semantic Footer -->
+    <footer class="footer-main">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="margin-bottom: 16px;">
+                    <span>☕ The V-Cafe</span>
+                </a>
+                <p style="color: #BDB0A4; font-size: 0.9rem;">Your daily sanctuary for traditional filter kaapi, delicious South Indian snacks, and memorable dining experiences in Coimbatore.</p>
+                <address style="font-style: normal; color: #E6D8CA; font-size: 0.88rem; margin-top: 12px;">
+                    📍 104 Race Course Road, Near Thomas Park, Coimbatore - 641018<br>
+                    📞 +91 70923 94128 | 📧 thevcafe@gmail    .com
+                </address>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Full Menu</a></li>
+                    <li><a href="reservation.html">Table Reservation</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Hours</h4>
+                <ul class="footer-links" style="color: #BDB0A4; font-size: 0.9rem;">
+                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
+                    <li>Saturday: 8:00 AM - 11:00 PM</li>
+                    <li>Sunday: 9:00 AM - 10:00 PM</li>
+                    <li style="color: var(--accent-gold); margin-top: 8px;">Kitchen closes 30 mins before closing.</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <p style="color: #BDB0A4; font-size: 0.9rem;">Stay updated with our seasonal brews & events!</p>
+                <div style="display: flex; gap: 12px; margin-top: 10px;">
+                    <a href="https://instagram.com" target="_blank"
+                        style="background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 4px; color: var(--accent-gold);">Instagram</a>
+                    <a href="https://facebook.com" target="_blank"
+                        style="background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 4px; color: var(--accent-gold);">Facebook</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 The V-Cafe. All Rights Reserved. Built with HTML5 & CSS3 Responsive Design.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("navMenu");
+            menu.classList.toggle("active");
+        }
+    </script>
+</body>
+
+</html>

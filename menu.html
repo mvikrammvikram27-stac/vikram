@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore The V-Cafe's full menu of traditional South Indian kaapi, teas, and local snacks. Order online with live bill estimation.">
+    <title>The V-Cafe | Menu & South Indian Delicacies</title>
+    
+    <!-- Google Fonts & Master CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Internal CSS for Menu Search & Summary Bar -->
+    <style>
+        .search-bar-container {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 35px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid var(--border-color);
+        }
+        
+        .order-summary-box {
+            position: sticky;
+            bottom: 20px;
+            background-color: var(--primary-dark);
+            color: #FFFFFF;
+            padding: 20px 28px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid var(--accent-gold);
+            margin-top: 40px;
+            z-index: 900;
+        }
+        
+        .filter-btn {
+            background: #EAE0D5;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--primary-dark);
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-medium);
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-main">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☕</span>
+                <span>The V-Cafe</span>
+            </a>
+            
+            <button class="mobile-toggle" aria-label="Toggle Menu" onclick="toggleMenu()">☰</button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link active">Menu & Order</a></li>
+                <li><a href="reservation.html" class="nav-link">Table Reservation</a></li>
+                <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="reservation.html" class="nav-link btn-nav-cta">Book Table</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Freshly Brewed & Traditional</span>
+                <h1 class="section-title">Explore Our Café Menu</h1>
+                <p>Select your favorite traditional coffee, tea, and local snacks to calculate live prices and place your order.</p>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="search-bar-container">
+                <div style="flex-grow: 1; min-width: 250px;">
+                    <!-- Demonstration of HTML5 input type="search" -->
+                    <label for="menuSearch" style="font-weight: 600; font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 4px;">SEARCH MENU ITEMS</label>
+                    <input type="search" id="menuSearch" placeholder="🔍 Type to search filter kaapi, dosa, vada..." onkeyup="filterMenuItems()" autocomplete="off">
+                </div>
+                
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" class="filter-btn active" onclick="filterCategory('all', this)">All Items</button>
+                    <button type="button" class="filter-btn" onclick="filterCategory('coffee', this)">Coffee</button>
+                    <button type="button" class="filter-btn" onclick="filterCategory('tea', this)">Teas</button>
+                    <button type="button" class="filter-btn" onclick="filterCategory('snacks', this)">Traditional Snacks</button>
+                </div>
+            </div>
+
+            <!-- Menu Cards Grid -->
+            <form id="menuOrderForm" oninput="calculateTotalOrder()">
+                <div class="grid-3col" id="menuGrid">
+                    
+                    <!-- ITEM 1 -->
+                    <article class="menu-card" data-category="coffee">
+                        <div class="card-img-wrapper">
+                            <img src="https://content.jdmagicbox.com/comp/guntur/t4/9999px863.x863.230329002839.z8t4/catalogue/kumbakonam-filter-coffee-guntur-coffee-shops-ay0q22ug3y.jpg" alt="Kumbakonam Degree Coffee">
+                            <span class="badge-tag">Signature</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Kumbakonam Degree Coffee</h3>
+                                <span class="card-price">₹40</span>
+                            </div>
+                            <p class="card-desc">Traditional chicory-blend coffee made with pure cows milk, served frothy in brass tumbler and dabarah.</p>
+                            <div class="card-controls">
+                                <label for="qty_degree_coffee" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_degree_coffee" data-price="40" data-name="Kumbakonam Degree Coffee" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 2 -->
+                    <article class="menu-card" data-category="coffee">
+                        <div class="card-img-wrapper">
+                            <img src="https://themadrasfiltercoffee.com/wp-content/uploads/2024/05/Best-Coffee-Franchise-In-India.jpg" alt="Chennai Filter Kaapi">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Chennai Filter Kaapi</h3>
+                                <span class="card-price">₹35</span>
+                            </div>
+                            <p class="card-desc">High-grade dark roasted coffee beans slow-dripped through a traditional filter, frothed with hot milk.</p>
+                            <div class="card-controls">
+                                <label for="qty_filter_kaapi" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_filter_kaapi" data-price="35" data-name="Chennai Filter Kaapi" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 3 -->
+                    <article class="menu-card" data-category="coffee">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Karupatti Coffee">
+                            <span class="badge-tag" style="background: #E67E22;">Traditional Health</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Karupatti Coffee (Palm Jaggery)</h3>
+                                <span class="card-price">₹50</span>
+                            </div>
+                            <p class="card-desc">Healthy alternative coffee brewed with organic palm jaggery (Karupatti) and dry ginger, offering rustic sweetness.</p>
+                            <div class="card-controls">
+                                <label for="qty_karupatti" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_karupatti" data-price="50" data-name="Karupatti Coffee (Palm Jaggery)" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 4 -->
+                    <article class="menu-card" data-category="tea">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80" alt="Madurai Elachi Chai">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Madurai Elachi (Cardamom) Chai</h3>
+                                <span class="card-price">₹30</span>
+                            </div>
+                            <p class="card-desc">Rich black tea frothed with freshly crushed cardamom pods, fresh ginger, and thick hot milk.</p>
+                            <div class="card-controls">
+                                <label for="qty_elachi_chai" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_elachi_chai" data-price="30" data-name="Madurai Elachi (Cardamom) Chai" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 5 -->
+                    <article class="menu-card" data-category="tea">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80" alt="Sukku Malli Tea">
+                            <span class="badge-tag">Healthy</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Sukku Malli Tea (Ginger & Coriander)</h3>
+                                <span class="card-price">₹45</span>
+                            </div>
+                            <p class="card-desc">Caffeine-free herbal infusion made from dry ginger (Sukku) and coriander seeds (Malli), sweetened with jaggery.</p>
+                            <div class="card-controls">
+                                <label for="qty_sukku_malli" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_sukku_malli" data-price="45" data-name="Sukku Malli Tea (Ginger & Coriander)" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 6 -->
+                    <article class="menu-card" data-category="tea">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=600&q=80" alt="Nilgiri Lemon Black Tea">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Nilgiri Lemon Black Tea</h3>
+                                <span class="card-price">₹35</span>
+                            </div>
+                            <p class="card-desc">Refreshing black tea sourced from the Nilgiri hills, brewed with fresh mint and a squeeze of fresh lemon juice.</p>
+                            <div class="card-controls">
+                                <label for="qty_nilgiri_lemon" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_nilgiri_lemon" data-price="35" data-name="Nilgiri Lemon Black Tea" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 7 -->
+                    <article class="menu-card" data-category="snacks">
+                        <div class="card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80" alt="Ghee Roast Dosa">
+                            <span class="badge-tag">Fresh Made</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Ghee Roast Dosa</h3>
+                                <span class="card-price">₹100</span>
+                            </div>
+                            <p class="card-desc">Crispy and golden fermented rice crepe cooked with pure aromatic ghee, served with coconut chutney and sambar.</p>
+                            <div class="card-controls">
+                                <label for="qty_dosa" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_dosa" data-price="100" data-name="Ghee Roast Dosa" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 8 -->
+                    <article class="menu-card" data-category="snacks">
+                        <div class="card-img-wrapper">
+                            <img src="https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg" alt="Medu Vada Platter">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Medu Vada (Set of 2)</h3>
+                                <span class="card-price">₹60</span>
+                            </div>
+                            <p class="card-desc">Crispy, golden-fried savory lentil donuts flavored with black pepper and curry leaves, served with hot sambar.</p>
+                            <div class="card-controls">
+                                <label for="qty_vada" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_vada" data-price="60" data-name="Medu Vada (Set of 2)" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ITEM 9 -->
+                    <article class="menu-card" data-category="snacks">
+                        <div class="card-img-wrapper">
+                            <img src="https://www.sizzlingtastebuds.com/wp-content/uploads/2017/09/Kanchipuram-Idli5.png" alt="Kancheepuram Idli">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3>Kancheepuram Idli (Set of 2)</h3>
+                                <span class="card-price">₹70</span>
+                            </div>
+                            <p class="card-desc">Soft, cylindrical steamed rice cakes spiced with cumin, pepper, ginger, and ghee, steamed in traditional mandharai leaves.</p>
+                            <div class="card-controls">
+                                <label for="qty_idli" style="font-size: 0.88rem; font-weight: 600;">Quantity:</label>
+                                <input type="number" id="qty_idli" data-price="70" data-name="Kancheepuram Idli (Set of 2)" class="qty-input" min="0" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                    </article>
+                    
+                </div>
+
+                <!-- Sticky Order Live Calculator Summary Bar -->
+                <div class="order-summary-box" id="orderSummaryBar">
+                    <div>
+                        <span style="font-size: 0.85rem; color: var(--accent-gold); text-transform: uppercase; font-weight: 700;">Live Bill Summary</span>
+                        <div style="font-size: 1.5rem; font-weight: 700; font-family: 'Playfair Display', serif;" id="displayTotal">
+                            Total: ₹0 <span style="font-size: 0.85rem; font-weight: 400; color: #D6C7B8;">(Includes 5% GST)</span>
+                        </div>
+                        <span id="itemCountLabel" style="font-size: 0.85rem; color: #D6C7B8;">0 items selected</span>
+                    </div>
+
+                    <div style="display: flex; gap: 12px;">
+                        <button type="button" class="btn btn-secondary" onclick="resetOrderForm()">Clear</button>
+                        <button type="button" class="btn btn-accent" onclick="submitCaféOrder()">Place Order ➔</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <div class="footer-bottom">
+            <p>&copy; 2026 The V-Cafe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Menu & Calculator Script -->
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        function calculateTotalOrder() {
+            var inputs = document.querySelectorAll('.qty-input');
+            var subtotal = 0;
+            var totalItems = 0;
+
+            inputs.forEach(function(input) {
+                var qty = parseInt(input.value) || 0;
+                var price = parseFloat(input.getAttribute('data-price')) || 0;
+                if (qty > 0) {
+                    subtotal += (qty * price);
+                    totalItems += qty;
+                }
+            });
+
+            var gstTax = subtotal * 0.05;
+            var netTotal = Math.round(subtotal + gstTax);
+
+            document.getElementById('displayTotal').innerHTML = "Total: ₹" + netTotal + " <span style='font-size: 0.85rem; font-weight: 400; color: #D6C7B8;'>(Incl. ₹" + Math.round(gstTax) + " GST)</span>";
+            document.getElementById('itemCountLabel').innerText = totalItems + " item(s) selected";
+            return { netTotal: netTotal, totalItems: totalItems, subtotal: subtotal };
+        }
+
+        function filterMenuItems() {
+            var query = document.getElementById('menuSearch').value.toLowerCase();
+            var cards = document.querySelectorAll('.menu-card');
+
+            cards.forEach(function(card) {
+                var title = card.querySelector('.card-title h3').innerText.toLowerCase();
+                var desc = card.querySelector('.card-desc').innerText.toLowerCase();
+                if (title.indexOf(query) !== -1 || desc.indexOf(query) !== -1) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function filterCategory(category, btnElement) {
+            var buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(function(btn) { btn.classList.remove('active'); });
+            btnElement.classList.add('active');
+
+            var cards = document.querySelectorAll('.menu-card');
+            cards.forEach(function(card) {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function resetOrderForm() {
+            var inputs = document.querySelectorAll('.qty-input');
+            inputs.forEach(function(input) { input.value = 0; });
+            calculateTotalOrder();
+        }
+
+        function submitCaféOrder() {
+            var res = calculateTotalOrder();
+            if (res.totalItems === 0) {
+                alert("Please select at least 1 menu item before placing an order.");
+                return;
+            }
+
+            alert("🎉 Thank you! Your order for " + res.totalItems + " item(s) has been placed successfully!\n\nTotal Payable Amount: ₹" + res.netTotal + " (Including GST).\n\nOur kitchen is preparing your traditional treats!");
+            resetOrderForm();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reserve your table or private event at The V-Cafe. Instant confirmation for indoor, garden patio, and rooftop dining experiences in Coimbatore.">
+    <title>The V-Cafe | Table & Private Event Reservation</title>
+    
+    <!-- Google Fonts & Master CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Internal CSS for Reservation Highlights -->
+    <style>
+        .form-section-title {
+            font-size: 1.15rem;
+            color: var(--primary-medium);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 8px;
+            margin-bottom: 18px;
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-callout {
+            background-color: #FFF9F2;
+            border-left: 4px solid var(--accent-gold);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        /* Reservation Summary Card Styles */
+        .res-summary-card {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #3e2617 100%);
+            color: #FFFFFF;
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            border: 2px solid var(--accent-gold);
+            margin-top: 10px;
+            box-shadow: var(--shadow-hover);
+            transition: transform 0.3s ease;
+        }
+        
+        .res-summary-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .res-summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .badge-live {
+            background-color: var(--accent-warm);
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            letter-spacing: 1px;
+            animation: pulse 1.5s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        .res-summary-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            color: #E2D5C7;
+        }
+        
+        .summary-divider {
+            border: 0;
+            border-top: 1px dashed rgba(226, 213, 199, 0.3);
+            margin: 8px 0;
+        }
+        
+        .total-row {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #FFFFFF;
+        }
+        
+        .total-price {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+        }
+        
+        .summary-note {
+            font-size: 0.82rem;
+            color: #C0B0A0;
+            margin-top: 8px;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-main">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☕</span>
+                <span>The V-Cafe</span>
+            </a>
+            
+            <button class="mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">☰</button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu & Order</a></li>
+                <li><a href="reservation.html" class="nav-link active">Table Reservation</a></li>
+                <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="reservation.html" class="nav-link btn-nav-cta">Book Table</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Book Your Ambiance</span>
+                <h1 class="section-title">Table & Event Reservation</h1>
+                <p>Reserve a cozy table for two, a business meeting booth, or an outdoor garden patio celebration.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="info-callout">
+                    📌 <strong>Reservation Policy:</strong> Reservations are held for 15 minutes past booking time. For parties larger than 12 guests, please contact our event manager directly.
+                </div>
+
+                <!-- Comprehensive HTML5 Reservation Form showcasing 15+ Input Elements & Attributes -->
+                <form id="reservationForm" onsubmit="handleReservationSubmit(event)">
+                    
+                    <!-- HTML5 Input type="hidden" -->
+                    <input type="hidden" name="session_token" value="BH-RES-2026-X99">
+
+                    <div class="form-grid">
+                        
+                        <!-- SECTION 1: PERSONAL INFORMATION -->
+                        <h3 class="form-section-title">👤 1. Guest Information</h3>
+
+                        <!-- Input 1: type="text" with attributes: required, placeholder, maxlength, minlength, autofocus, autocomplete -->
+                        <div class="form-group">
+                            <label for="guest_name" class="form-label">
+                                Full Name <span class="required-star">*</span>
+                            </label>
+                            <input type="text" id="guest_name" name="guest_name" placeholder="e.g. Rahul Sharma" required minlength="3" maxlength="50" autofocus autocomplete="name">
+                        </div>
+
+                        <!-- Input 2: type="email" with attributes: required, placeholder, autocomplete -->
+                        <div class="form-group">
+                            <label for="guest_email" class="form-label">
+                                Email Address <span class="required-star">*</span>
+                            </label>
+                            <input type="email" id="guest_email" name="guest_email" placeholder="rahul@example.com" required autocomplete="email">
+                        </div>
+
+                        <!-- Input 3: type="tel" with attributes: required, placeholder, pattern, maxlength -->
+                        <div class="form-group">
+                            <label for="guest_phone" class="form-label">
+                                Phone Number (10 Digits) <span class="required-star">*</span>
+                            </label>
+                            <input type="tel" id="guest_phone" name="guest_phone" placeholder="9876543210" pattern="[0-9]{10}" maxlength="10" required autocomplete="tel">
+                        </div>
+
+                        <!-- Input 4: type="password" with attributes: placeholder, maxlength (VIP PIN for cancellation access) -->
+                        <div class="form-group">
+                            <label for="res_pin" class="form-label">
+                                Reservation PIN / Passcode (Optional)
+                            </label>
+                            <input type="password" id="res_pin" name="res_pin" placeholder="Create 4-digit PIN" maxlength="4" pattern="[0-9]{4}">
+                        </div>
+
+
+                        <!-- SECTION 2: BOOKING DETAILS -->
+                        <h3 class="form-section-title">📅 2. Booking Details & Schedule</h3>
+
+                        <!-- Input 5: type="date" with attributes: required, min, max -->
+                        <div class="form-group">
+                            <label for="res_date" class="form-label">
+                                Reservation Date <span class="required-star">*</span>
+                            </label>
+                            <input type="date" id="res_date" name="res_date" required min="2026-07-22" max="2026-12-31">
+                        </div>
+
+                        <!-- Input 6: type="time" with attributes: required, min, max -->
+                        <div class="form-group">
+                            <label for="res_time" class="form-label">
+                                Reservation Time <span class="required-star">*</span>
+                            </label>
+                            <input type="time" id="res_time" name="res_time" required min="08:00" max="22:00">
+                        </div>
+
+                        <!-- Input 7: type="number" with attributes: required, min, max, value, step -->
+                        <div class="form-group">
+                            <label for="guest_count" class="form-label">
+                                Number of Guests <span class="required-star">*</span>
+                            </label>
+                            <input type="number" id="guest_count" name="guest_count" min="1" max="20" value="2" step="1" required>
+                        </div>
+
+                        <!-- Input 8: type="datetime-local" for VIP Event Party Slot -->
+                        <div class="form-group">
+                            <label for="event_slot" class="form-label">
+                                Private Event Start (If Booking Event)
+                            </label>
+                            <input type="datetime-local" id="event_slot" name="event_slot">
+                        </div>
+
+
+                        <!-- SECTION 3: SEATING & PACKAGE CONTROL -->
+                        <h3 class="form-section-title">🪑 3. Table Location & Dining Package</h3>
+
+                        <!-- Control 9: <select> with <optgroup> and <option> -->
+                        <div class="form-group">
+                            <label for="dining_package" class="form-label">
+                                Dining Package Selection <span class="required-star">*</span>
+                            </label>
+                            <select id="dining_package" name="dining_package" required>
+                                <option value="" disabled selected>-- Select Dining Experience --</option>
+                                <optgroup label="Standard Dining">
+                                    <option value="regular">À La Carte Regular Dining</option>
+                                    <option value="coffee_tasting">Barista Coffee Tasting Experience</option>
+                                </optgroup>
+                                <optgroup label="Special Packages">
+                                    <option value="high_tea">Afternoon High Tea & Pastries</option>
+                                    <option value="candlelight">Romantic Candlelight Dinner Setup</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <!-- Input 10: type="radio" for Seating Area Choice -->
+                        <div class="form-group full-width">
+                            <label class="form-label">Seating Preference <span class="required-star">*</span></label>
+                            <div class="option-group-wrapper">
+                                <label class="custom-option">
+                                    <input type="radio" name="seating_area" value="indoor" checked required>
+                                    <span>Main Indoor Lounge (AC)</span>
+                                </label>
+                                <label class="custom-option">
+                                    <input type="radio" name="seating_area" value="patio">
+                                    <span>Outdoor Garden Patio</span>
+                                </label>
+                                <label class="custom-option">
+                                    <input type="radio" name="seating_area" value="booth">
+                                    <span>Private Meeting Booth</span>
+                                </label>
+                                <label class="custom-option">
+                                    <input type="radio" name="seating_area" value="rooftop">
+                                    <span>Rooftop Terrace</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Input 11: type="checkbox" for Add-ons & Dietary Requirements -->
+                        <div class="form-group full-width">
+                            <label class="form-label">Special Services & Dietary Requests</label>
+                            <div class="option-group-wrapper">
+                                <label class="custom-option">
+                                    <input type="checkbox" name="special_req" value="vegan">
+                                    <span>🌱 Vegan Options</span>
+                                </label>
+                                <label class="custom-option">
+                                    <input type="checkbox" name="special_req" value="gluten_free">
+                                    <span>🌾 Gluten-Free Items</span>
+                                </label>
+                                <label class="custom-option">
+                                    <input type="checkbox" name="special_req" value="birthday">
+                                    <span>🎂 Birthday / Anniversary Surprise</span>
+                                </label>
+                                <label class="custom-option">
+                                    <input type="checkbox" name="special_req" value="wheelchair">
+                                    <span>♿ Wheelchair Accessible Table</span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <!-- SECTION 4: ADDITIONAL CONTROLS & ATTRIBUTES DEMO -->
+                        <h3 class="form-section-title">📝 4. Additional Specifications</h3>
+
+                        <!-- Input 12: type="text" with attribute readonly -->
+                        <div class="form-group">
+                            <label for="ref_code" class="form-label">
+                                Reference System Code (Auto-Generated)
+                            </label>
+                            <input type="text" id="ref_code" name="ref_code" value="BH-REF-2026-COIM" readonly>
+                        </div>
+
+                        <!-- Input 13: type="text" with attribute disabled -->
+                        <div class="form-group">
+                            <label for="vip_lounge_code" class="form-label">
+                                VIP Gold Lounge Access Code
+                            </label>
+                            <input type="text" id="vip_lounge_code" name="vip_lounge_code" value="CURRENTLY FULL" disabled>
+                        </div>
+
+                        <!-- Control 14: <textarea> with placeholder and maxlength -->
+                        <div class="form-group full-width">
+                            <label for="special_notes" class="form-label">
+                                Special Requests / Food Allergies Notes
+                            </label>
+                            <textarea id="special_notes" name="special_notes" placeholder="Please mention any food allergies or specific seating placement requests..." maxlength="300"></textarea>
+                        </div>
+
+                        <!-- Input 16: type="text" readonly showing live calculated reservation bill amount -->
+                        <div class="form-group full-width">
+                            <label for="bill_amount" class="form-label">
+                                Reservation Bill Amount (INR)
+                            </label>
+                            <input type="text" id="bill_amount" name="bill_amount" value="₹200" readonly style="font-weight: 700; color: var(--primary-medium); background-color: #FDF9F5;">
+                        </div>
+
+                        <!-- Reservation Bill Summary Card -->
+                        <div class="form-group full-width">
+                            <div class="res-summary-card">
+                                <div class="res-summary-header">
+                                    <span>🧾 Reservation Bill Estimate</span>
+                                    <span class="badge-live">Live</span>
+                                </div>
+                                <div class="res-summary-body">
+                                    <div class="summary-row">
+                                        <span>Base Reservation Fee (₹100 × <span id="summary-guests">2</span> guests)</span>
+                                        <span id="summary-base-val">₹200</span>
+                                    </div>
+                                    <div class="summary-row" id="summary-package-row" style="display: none;">
+                                        <span>Package Upgrade (<span id="summary-package-name">-</span>)</span>
+                                        <span id="summary-package-val">₹0</span>
+                                    </div>
+                                    <hr class="summary-divider">
+                                    <div class="summary-row total-row">
+                                        <span>Total Payable Reservation Amount</span>
+                                        <span id="summary-total-val" class="total-price">₹200</span>
+                                    </div>
+                                    <p class="summary-note">💡 Note: The base reservation fee of ₹100/guest is fully adjustable against your final café bill during your dining visit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 15: type="checkbox" required for Terms -->
+                        <div class="form-group full-width">
+                            <label class="custom-option">
+                                <input type="checkbox" id="terms_agree" name="terms_agree" required>
+                                <span>I agree to the The V-Cafe reservation policy and consent to receiving SMS/email confirmation. <span class="required-star">*</span></span>
+                            </label>
+                        </div>
+
+                        <!-- Form Actions: type="submit" and type="reset" buttons -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-accent" style="flex: 2;">
+                                🚀 Confirm Table Booking
+                            </button>
+                            <button type="reset" class="btn btn-secondary" style="flex: 1;">
+                                🔄 Reset Form
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <div class="footer-bottom">
+            <p>&copy; 2026 The V-Cafe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Reservation Form Handling -->
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        // Function to update the bill amount dynamically
+        function updateReservationBill() {
+            var countInput = document.getElementById("guest_count");
+            var count = parseInt(countInput.value) || 1;
+            
+            // Limit count within min/max values
+            var minCount = parseInt(countInput.getAttribute("min")) || 1;
+            var maxCount = parseInt(countInput.getAttribute("max")) || 20;
+            if (count < minCount) count = minCount;
+            if (count > maxCount) count = maxCount;
+            
+            var packageSelect = document.getElementById("dining_package");
+            var selectedPackage = packageSelect.value;
+            
+            // Update guests count in summary row
+            document.getElementById("summary-guests").innerText = count;
+            
+            var baseFee = 100 * count;
+            document.getElementById("summary-base-val").innerText = "₹" + baseFee;
+            
+            var packageFee = 0;
+            var packageName = "";
+            var showPackageRow = false;
+            
+            if (selectedPackage === "regular") {
+                packageName = "À La Carte Regular Dining";
+                packageFee = 0;
+                showPackageRow = true;
+            } else if (selectedPackage === "coffee_tasting") {
+                packageName = "Barista Coffee Tasting (₹150 addon/guest)";
+                packageFee = 150 * count;
+                showPackageRow = true;
+            } else if (selectedPackage === "high_tea") {
+                packageName = "Afternoon High Tea (₹250 addon/guest)";
+                packageFee = 250 * count;
+                showPackageRow = true;
+            } else if (selectedPackage === "candlelight") {
+                packageName = "Romantic Candlelight Setup (₹800 flat addon)";
+                packageFee = 800;
+                showPackageRow = true;
+            }
+            
+            var packageRow = document.getElementById("summary-package-row");
+            if (showPackageRow && packageName !== "") {
+                document.getElementById("summary-package-name").innerText = packageName;
+                document.getElementById("summary-package-val").innerText = "₹" + packageFee;
+                packageRow.style.display = "flex";
+            } else {
+                packageRow.style.display = "none";
+            }
+            
+            var totalBill = baseFee + packageFee;
+            var totalText = "₹" + totalBill;
+            document.getElementById("summary-total-val").innerText = totalText;
+            document.getElementById("bill_amount").value = totalText;
+            
+            return totalBill;
+        }
+
+        // Set default date to today and configure event listeners
+        document.addEventListener("DOMContentLoaded", function() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("res_date").setAttribute('min', today);
+            document.getElementById("res_date").value = today;
+            
+            // Set default dining package selection to regular
+            document.getElementById("dining_package").value = "regular";
+            
+            // Setup event listeners for live bill update
+            document.getElementById("guest_count").addEventListener("input", updateReservationBill);
+            document.getElementById("guest_count").addEventListener("change", updateReservationBill);
+            document.getElementById("dining_package").addEventListener("change", updateReservationBill);
+            
+            // Listen for form reset to recalculate bill amount after reset occurs
+            document.getElementById("reservationForm").addEventListener("reset", function() {
+                setTimeout(updateReservationBill, 0);
+            });
+            
+            // Initial call to set correct values
+            updateReservationBill();
+        });
+
+        async function handleReservationSubmit(event) {
+            event.preventDefault();
+
+            const form = event.currentTarget;
+            const formData = new FormData(form);
+            const payload = {
+                guest_name: formData.get('guest_name'),
+                guest_email: formData.get('guest_email'),
+                guest_phone: formData.get('guest_phone'),
+                res_pin: formData.get('res_pin'),
+                res_date: formData.get('res_date'),
+                res_time: formData.get('res_time'),
+                guest_count: formData.get('guest_count'),
+                event_slot: formData.get('event_slot'),
+                dining_package: formData.get('dining_package'),
+                seating_area: formData.get('seating_area'),
+                special_req: formData.getAll('special_req'),
+                ref_code: formData.get('ref_code'),
+                special_notes: formData.get('special_notes'),
+                bill_amount: formData.get('bill_amount'),
+                terms_agree: formData.get('terms_agree') === 'on'
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/reservation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Reservation failed');
+                }
+
+                var name = document.getElementById("guest_name").value;
+                var date = document.getElementById("res_date").value;
+                var time = document.getElementById("res_time").value;
+                var count = document.getElementById("guest_count").value;
+                var area = document.querySelector('input[name="seating_area"]:checked').value;
+                var packageSelect = document.getElementById("dining_package");
+                var packageName = packageSelect.options[packageSelect.selectedIndex].text;
+                var billAmount = updateReservationBill();
+
+                alert("🎉 TABLE RESERVED SUCCESSFULLY!\n\nGuest Name: " + name + "\nDate: " + date + " at " + time + "\nGuests: " + count + " Person(s)\nSeating: " + area.toUpperCase() + "\nExperience: " + packageName + "\nReservation Bill Amount: ₹" + billAmount + " (Payable at Café/Adjustable)\nRef ID: BH-REF-2026-COIM\n\nA confirmation email and SMS have been sent.\n\nServer message: " + result.message);
+
+                form.reset();
+
+                var today = new Date().toISOString().split('T')[0];
+                document.getElementById("res_date").value = today;
+                document.getElementById("dining_package").value = "regular";
+                updateReservationBill();
+            } catch (error) {
+                alert('Unable to save the reservation. Please try again.\n' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

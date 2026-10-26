@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Share your dining and coffee experience at The V-Cafe. We value customer feedback to continuously elevate our service.">
+    <title>The V-Cafe | Customer Feedback & Reviews</title>
+    
+    <!-- Google Fonts & Master CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .range-value-display {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-top: 4px;
+        }
+        
+        .review-card {
+            background: #FFFFFF;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-main">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☕</span>
+                <span>The V-Cafe</span>
+            </a>
+            
+            <button class="mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">☰</button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu & Order</a></li>
+                <li><a href="reservation.html" class="nav-link">Table Reservation</a></li>
+                <li><a href="feedback.html" class="nav-link active">Feedback</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="reservation.html" class="nav-link btn-nav-cta">Book Table</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">We Value Your Voice</span>
+                <h1 class="section-title">Customer Feedback & Reviews</h1>
+                <p>Tell us about your recent visit, coffee taste, service quality, or general recommendations.</p>
+            </div>
+
+            <div class="grid-2col" style="align-items: start;">
+                
+                <!-- Feedback Submission Form showcasing Range, Color, File, URL, Select, Textarea -->
+                <div class="form-container" style="margin: 0; width: 100%; max-width: 100%;">
+                    <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+                        <div class="form-grid">
+                            
+                            <h3 class="form-section-title">💬 Share Your Experience</h3>
+
+                            <!-- Input 1: type="text" -->
+                            <div class="form-group">
+                                <label for="fb_name" class="form-label">Your Name <span class="required-star">*</span></label>
+                                <input type="text" id="fb_name" placeholder="Enter your full name" required minlength="2" maxlength="40">
+                            </div>
+
+                            <!-- Input 2: type="email" -->
+                            <div class="form-group">
+                                <label for="fb_email" class="form-label">Email Address <span class="required-star">*</span></label>
+                                <input type="email" id="fb_email" placeholder="name@example.com" required>
+                            </div>
+
+                            <!-- Input 3: <select> Star Rating -->
+                            <div class="form-group">
+                                <label for="fb_rating" class="form-label">Overall Rating <span class="required-star">*</span></label>
+                                <select id="fb_rating" required>
+                                    <option value="" disabled selected>-- Choose Star Rating --</option>
+                                    <option value="5">⭐⭐⭐⭐⭐ Excellent (5 Stars)</option>
+                                    <option value="4">⭐⭐⭐⭐ Very Good (4 Stars)</option>
+                                    <option value="3">⭐⭐⭐ Average (3 Stars)</option>
+                                    <option value="2">⭐⭐ Fair (2 Stars)</option>
+                                    <option value="1">⭐ Needs Improvement (1 Star)</option>
+                                </select>
+                            </div>
+
+                            <!-- Input 4: type="range" with min, max, step -->
+                            <div class="form-group">
+                                <label for="fb_score" class="form-label">Satisfaction Score (1 - 10)</label>
+                                <input type="range" id="fb_score" min="1" max="10" step="1" value="9" oninput="updateScoreLabel(this.value)">
+                                <div class="range-value-display" id="scoreValue">Score: 9 / 10</div>
+                            </div>
+
+                            <!-- Input 5: type="color" for Cafe Mood Palette -->
+                            <div class="form-group">
+                                <label for="fb_color" class="form-label">Select Café Vibe/Mood Color</label>
+                                <input type="color" id="fb_color" value="#D4AF37">
+                            </div>
+
+                            <!-- Input 6: type="url" -->
+                            <div class="form-group">
+                                <label for="fb_url" class="form-label">Personal Blog / Social Profile URL</label>
+                                <input type="url" id="fb_url" placeholder="https://instagram.com/yourhandle">
+                            </div>
+
+                            <!-- Input 7: type="file" with accept attribute -->
+                            <div class="form-group full-width">
+                                <label for="fb_file" class="form-label">Upload Dining Photo or Receipt (Optional)</label>
+                                <input type="file" id="fb_file" accept="image/*,.pdf">
+                            </div>
+
+                            <!-- Input 8: type="radio" for Visit Frequency -->
+                            <div class="form-group full-width">
+                                <label class="form-label">How often do you visit The V-Cafe?</label>
+                                <div class="option-group-wrapper">
+                                    <label class="custom-option">
+                                        <input type="radio" name="visit_freq" value="First Time" checked>
+                                        <span>First Time Guest</span>
+                                    </label>
+                                    <label class="custom-option">
+                                        <input type="radio" name="visit_freq" value="Weekly">
+                                        <span>Weekly Regular</span>
+                                    </label>
+                                    <label class="custom-option">
+                                        <input type="radio" name="visit_freq" value="Daily">
+                                        <span>Daily Coffee Lover</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Input 9: type="checkbox" for Highlight Features -->
+                            <div class="form-group full-width">
+                                <label class="form-label">What did you enjoy most?</label>
+                                <div class="option-group-wrapper">
+                                    <label class="custom-option">
+                                        <input type="checkbox" name="enjoyed" value="Coffee Quality" checked>
+                                        <span>☕ Coffee Quality</span>
+                                    </label>
+                                    <label class="custom-option">
+                                        <input type="checkbox" name="enjoyed" value="Ambiance">
+                                        <span>🎷 Ambiance & Music</span>
+                                    </label>
+                                    <label class="custom-option">
+                                        <input type="checkbox" name="enjoyed" value="Staff Service">
+                                        <span>😊 Barista Service</span>
+                                    </label>
+                                    <label class="custom-option">
+                                        <input type="checkbox" name="enjoyed" value="Pastry Taste">
+                                        <span>🥐 Fresh Bakery Items</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Input 10: <textarea> -->
+                            <div class="form-group full-width">
+                                <label for="fb_comments" class="form-label">Detailed Feedback & Comments <span class="required-star">*</span></label>
+                                <textarea id="fb_comments" placeholder="Describe your coffee taste, food quality, or suggestions..." required maxlength="400"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-accent" style="flex: 2;">Submit Feedback ➔</button>
+                                <button type="reset" class="btn btn-secondary" style="flex: 1;">Reset</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Live Customer Reviews Wall -->
+                <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; color: var(--primary-dark);">Recent Guest Reviews</h3>
+                    
+                    <div id="reviewsWall">
+                        <article class="review-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <strong style="color: var(--primary-medium); font-size: 1.05rem;">Siddharth V.</strong>
+                                <span style="color: #F1C40F;">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <p style="font-size: 0.92rem; margin-bottom: 8px;">"Loved the Hazelnut Velvet Espresso and almond croissant! Ambiance is so peaceful for working on laptop."</p>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">Visited: 2 days ago | Satisfaction: 10/10</span>
+                        </article>
+
+                        <article class="review-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <strong style="color: var(--primary-medium); font-size: 1.05rem;">Meera Menon</strong>
+                                <span style="color: #F1C40F;">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <p style="font-size: 0.92rem; margin-bottom: 8px;">"The outdoor garden patio table we booked was decorated beautifully. Top class coffee craftsmanship."</p>
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">Visited: Yesterday | Satisfaction: 9/10</span>
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <div class="footer-bottom">
+            <p>&copy; 2026 The V-Cafe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Feedback Page -->
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        function updateScoreLabel(val) {
+            document.getElementById("scoreValue").innerText = "Score: " + val + " / 10";
+        }
+
+        async function handleFeedbackSubmit(event) {
+            event.preventDefault();
+
+            const form = event.currentTarget;
+            const payload = {
+                name: document.getElementById("fb_name").value,
+                email: document.getElementById("fb_email").value,
+                rating: document.getElementById("fb_rating").value,
+                satisfaction_score: document.getElementById("fb_score").value,
+                vibe_color: document.getElementById("fb_color").value,
+                social_url: document.getElementById("fb_url").value,
+                visit_frequency: document.querySelector('input[name="visit_freq"]:checked')?.value || '',
+                enjoyed: Array.from(document.querySelectorAll('input[name="enjoyed"]:checked')).map(item => item.value),
+                comments: document.getElementById("fb_comments").value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Feedback failed');
+                }
+
+                var name = payload.name;
+                var ratingNum = payload.rating;
+                var comments = payload.comments;
+                var score = payload.satisfaction_score;
+                var stars = "⭐".repeat(parseInt(ratingNum));
+
+                var wall = document.getElementById("reviewsWall");
+                var card = document.createElement("article");
+                card.className = "review-card";
+                card.style.borderLeft = "4px solid var(--accent-gold)";
+                card.innerHTML = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">' +
+                                    '<strong style="color: var(--primary-medium); font-size: 1.05rem;">' + name + '</strong>' +
+                                    '<span style="color: #F1C40F;">' + stars + '</span>' +
+                                 '</div>' +
+                                 '<p style="font-size: 0.92rem; margin-bottom: 8px;">"' + comments + '"</p>' +
+                                 '<span style="font-size: 0.78rem; color: var(--text-muted);">Visited: Just Now | Satisfaction: ' + score + '/10</span>';
+
+                wall.insertBefore(card, wall.firstChild);
+
+                alert("🎉 Thank you, " + name + "! Your feedback has been published to our guest review wall.\n\nServer response: " + result.message);
+                form.reset();
+                updateScoreLabel(9);
+            } catch (error) {
+                alert('Unable to save feedback right now. Please try again.\n' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

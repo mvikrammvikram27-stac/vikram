@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact The V-Cafe in Coimbatore. Operating hours, location directions, event inquiries, and direct contact details.">
+    <title>The V-Cafe | Contact Us & Location Directions</title>
+    
+    <!-- Google Fonts & Master CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .contact-info-box {
+            background-color: var(--primary-dark);
+            color: #FFFFFF;
+            padding: 36px;
+            border-radius: var(--radius-md);
+            height: 100%;
+        }
+        
+        .contact-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            background-color: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            text-align: center;
+            margin-top: 40px;
+            border: 2px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-main">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☕</span>
+                <span>The V-Cafe</span>
+            </a>
+            
+            <button class="mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">☰</button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="menu.html" class="nav-link">Menu & Order</a></li>
+                <li><a href="reservation.html" class="nav-link">Table Reservation</a></li>
+                <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
+                <li><a href="reservation.html" class="nav-link btn-nav-cta">Book Table</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Get In Touch</span>
+                <h1 class="section-title">Contact & Location</h1>
+                <p>Have questions about event catering, franchise opportunities, or table availability? We are here to help!</p>
+            </div>
+
+            <!-- Contact Cards & Form -->
+            <div class="grid-2col" style="align-items: stretch;">
+                
+                <!-- Left Column: Contact Details Card -->
+                <div class="contact-info-box">
+                    <h3 style="color: var(--accent-gold); font-size: 1.8rem; margin-bottom: 24px;">Café Location & Info</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong style="color: var(--accent-gold); display: block; margin-bottom: 4px;">Address</strong>
+                            <address style="font-style: normal; color: #D6C7B8; line-height: 1.5;">
+                                The V-Cafe<br>
+                                104 Race Course Road, Near Thomas Park,<br>
+                                Coimbatore, Tamil Nadu - 641018
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong style="color: var(--accent-gold); display: block; margin-bottom: 4px;">Phone & Whatsapp</strong>
+                            <p style="color: #D6C7B8; margin: 0;">+91 98765 43210 / +91 0422 2345678</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong style="color: var(--accent-gold); display: block; margin-bottom: 4px;">Email Support</strong>
+                            <p style="color: #D6C7B8; margin: 0;">thevcafe@gmail.com / events@thevcafe.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">☕</div>
+                        <div>
+                            <strong style="color: var(--accent-gold); display: block; margin-bottom: 4px;">Service Types</strong>
+                            <p style="color: #D6C7B8; margin: 0;">Dine-In • Takeaway • Outdoor Patio • Corporate Catering</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Inquiry Form -->
+                <div class="form-container" style="margin: 0; width: 100%; max-width: 100%;">
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <div class="form-grid">
+                            <h3 class="form-section-title">✉️ Send Us a Message</h3>
+
+                            <div class="form-group">
+                                <label for="contact_name" class="form-label">Full Name <span class="required-star">*</span></label>
+                                <input type="text" id="contact_name" placeholder="Enter your name" required maxlength="50">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact_email" class="form-label">Email Address <span class="required-star">*</span></label>
+                                <input type="email" id="contact_email" placeholder="name@example.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact_phone" class="form-label">Phone Number <span class="required-star">*</span></label>
+                                <input type="tel" id="contact_phone" placeholder="9876543210" pattern="[0-9]{10}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact_subject" class="form-label">Inquiry Subject <span class="required-star">*</span></label>
+                                <select id="contact_subject" required>
+                                    <option value="" disabled selected>-- Select Inquiry Type --</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="catering">Corporate & Party Catering</option>
+                                    <option value="franchise">Franchise & Business Partnership</option>
+                                    <option value="feedback">Service / Manager Feedback</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="contact_msg" class="form-label">Your Message <span class="required-star">*</span></label>
+                                <textarea id="contact_msg" placeholder="Write your message here..." required maxlength="500"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" style="flex: 1;">Send Message ➔</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Operating Hours Table Section (HTML5 Table with styling) -->
+            <section style="margin-top: 60px;">
+                <h2 style="text-align: center; margin-bottom: 24px; color: var(--primary-dark);">Weekly Operating Schedule</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day of the Week</th>
+                                <th>Opening Time</th>
+                                <th>Closing Time</th>
+                                <th>Special Service / Happy Hour</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Monday - Thursday</strong></td>
+                                <td>08:00 AM</td>
+                                <td>10:00 PM</td>
+                                <td>Morning Espresso Special (8 AM - 10 AM)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Friday</strong></td>
+                                <td>08:00 AM</td>
+                                <td>11:00 PM</td>
+                                <td>Live Acoustic Music Night (7 PM onwards)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Saturday</strong></td>
+                                <td>08:00 AM</td>
+                                <td>11:00 PM</td>
+                                <td>Weekend Pastry & High Tea Buffet</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sunday</strong></td>
+                                <td>09:00 AM</td>
+                                <td>10:00 PM</td>
+                                <td>All-Day Artisan Brunch & Coffee Tasting</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Map Mockup Container -->
+            <div class="map-placeholder">
+                <div>
+                    <h3 style="color: var(--accent-gold); font-size: 1.8rem; margin-bottom: 10px;">📍 The V-Cafe Coimbatore</h3>
+                    <p style="color: #F3EAE1; margin-bottom: 16px;">Located opposite Thomas Park on Race Course Road.</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-accent">Open in Google Maps ➔</a>
+                </div>
+            </div>
+
+            <!-- Newsletter Subscription Form -->
+            <div style="background-color: var(--primary-medium); color: #FFFFFF; padding: 40px; border-radius: var(--radius-md); margin-top: 50px; text-align: center;">
+                <h3 style="color: var(--accent-gold); font-size: 1.8rem; margin-bottom: 8px;">Subscribe to Coffee Club Newsletter</h3>
+                <p style="color: #E6D8CA; max-width: 550px; margin: 0 auto 20px auto;">Get monthly coffee brewing tips, secret menu access, and 15% off your next table reservation.</p>
+
+                <form id="newsletterForm" onsubmit="handleNewsletterSubmit(event)" style="max-width: 500px; margin: 0 auto;">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="email" id="news_email" placeholder="Enter your email address" required style="flex-grow: 1;">
+                        <button type="submit" class="btn btn-accent">Subscribe</button>
+                    </div>
+                    <label class="custom-option" style="margin-top: 12px; justify-content: center; color: #E6D8CA; font-size: 0.85rem;">
+                        <input type="checkbox" required checked>
+                        <span>I consent to receiving promotional offers from The V-Cafe.</span>
+                    </label>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <div class="footer-bottom">
+            <p>&copy; 2026 The V-Cafe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Contact Page -->
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        async function handleContactSubmit(event) {
+            event.preventDefault();
+
+            const payload = {
+                name: document.getElementById("contact_name").value,
+                email: document.getElementById("contact_email").value,
+                phone: document.getElementById("contact_phone").value,
+                subject: document.getElementById("contact_subject").value,
+                message: document.getElementById("contact_msg").value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Contact failed');
+                }
+
+                var name = payload.name;
+                var subj = payload.subject;
+                alert("✉️ Message Sent Successfully!\n\nThank you " + name + ". Our team will respond regarding your " + subj + " inquiry within 24 hours.\n\nServer response: " + result.message);
+                document.getElementById("contactForm").reset();
+            } catch (error) {
+                alert('Unable to send your message right now. Please try again.\n' + error.message);
+            }
+        }
+
+        async function handleNewsletterSubmit(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("news_email").value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/newsletter', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Newsletter signup failed');
+                }
+
+                alert("🎉 Subscribed! Thank you for joining the The V-Cafe Coffee Club (" + email + "). Check your inbox for your 15% discount code!\n\nServer response: " + result.message);
+                document.getElementById("newsletterForm").reset();
+            } catch (error) {
+                alert('Unable to subscribe right now. Please try again.\n' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

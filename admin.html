@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The V-Cafe | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: 240px; height: 100vh;
+            background: #1a1a1a;
+            border-right: 1px solid #2a2a2a;
+            display: flex; flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            padding: 24px 20px;
+            border-bottom: 1px solid #2a2a2a;
+            font-family: 'Playfair Display', serif;
+            color: #D4AF37;
+            font-size: 1.3rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .sidebar-menu { padding: 16px 0; flex: 1; }
+
+        .menu-label {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: #555;
+            padding: 12px 20px 6px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 11px 20px; cursor: pointer;
+            transition: all 0.2s; border-left: 3px solid transparent;
+            font-size: 0.9rem; color: #aaa;
+        }
+
+        .menu-item:hover { background: #222; color: #fff; }
+
+        .menu-item.active {
+            background: rgba(212,175,55,0.08);
+            border-left-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        .menu-item .badge {
+            margin-left: auto; background: #D4AF37;
+            color: #000; font-size: 0.7rem; font-weight: 700;
+            padding: 2px 7px; border-radius: 10px; min-width: 22px;
+            text-align: center;
+        }
+
+        /* ── Main Content ── */
+        .main {
+            margin-left: 240px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #1a1a1a;
+            border-bottom: 1px solid #2a2a2a;
+            padding: 18px 32px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+        }
+
+        .topbar h1 { font-size: 1.1rem; color: #fff; font-weight: 600; }
+        .topbar .meta { font-size: 0.82rem; color: #666; }
+
+        .refresh-btn {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: #D4AF37; padding: 8px 16px;
+            border-radius: 8px; cursor: pointer;
+            font-size: 0.85rem; font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .refresh-btn:hover { background: rgba(212,175,55,0.2); }
+
+        .content { padding: 28px 32px; }
+
+        /* ── Stat Cards ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px; margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 22px 24px;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover { transform: translateY(-3px); }
+
+        .stat-card .label {
+            font-size: 0.78rem; text-transform: uppercase;
+            letter-spacing: 1px; color: #666; margin-bottom: 12px;
+        }
+
+        .stat-card .value {
+            font-size: 2.2rem; font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-card .icon {
+            font-size: 1.8rem; float: right;
+            margin-top: -30px; opacity: 0.6;
+        }
+
+        .stat-card.gold   .value { color: #D4AF37; }
+        .stat-card.green  .value { color: #2ecc71; }
+        .stat-card.blue   .value { color: #3498db; }
+        .stat-card.pink   .value { color: #e91e8c; }
+        .stat-card.purple .value { color: #9b59b6; }
+
+        /* ── Table Panel ── */
+        .panel {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .panel.active { display: block; }
+
+        .panel-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex; align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-header h2 { font-size: 1rem; color: #fff; font-weight: 600; }
+        .panel-header .count { font-size: 0.82rem; color: #666; }
+
+        .search-box {
+            background: #111; border: 1px solid #333;
+            border-radius: 8px; padding: 8px 14px;
+            color: #ccc; font-size: 0.85rem;
+            font-family: inherit; width: 220px;
+        }
+
+        .search-box:focus { outline: none; border-color: #D4AF37; }
+
+        /* Table */
+        .table-wrap { overflow-x: auto; }
+
+        table {
+            width: 100%; border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead tr { background: #111; }
+
+        th {
+            padding: 12px 16px; text-align: left;
+            font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 1px; color: #555;
+            font-weight: 600; white-space: nowrap;
+        }
+
+        td {
+            padding: 13px 16px;
+            border-top: 1px solid #222;
+            color: #ccc; vertical-align: middle;
+        }
+
+        tr:hover td { background: #1f1f1f; }
+
+        .tag {
+            display: inline-block; padding: 3px 10px;
+            border-radius: 20px; font-size: 0.72rem;
+            font-weight: 600; text-transform: uppercase;
+        }
+
+        .tag-green  { background: rgba(46,204,113,0.12);  color: #2ecc71; }
+        .tag-blue   { background: rgba(52,152,219,0.12);  color: #3498db; }
+        .tag-gold   { background: rgba(212,175,55,0.12);  color: #D4AF37; }
+        .tag-pink   { background: rgba(233,30,140,0.12);  color: #e91e8c; }
+        .tag-purple { background: rgba(155,89,182,0.12);  color: #9b59b6; }
+
+        .stars { color: #f1c40f; letter-spacing: -2px; }
+
+        .empty-state {
+            text-align: center; padding: 60px 20px; color: #444;
+        }
+
+        .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+
+        /* Loading spinner */
+        .spinner {
+            text-align: center; padding: 60px;
+            color: #D4AF37; font-size: 1.5rem;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin-icon { display: inline-block; animation: spin 1s linear infinite; }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px;
+            background: #2ecc71; color: #fff;
+            padding: 12px 20px; border-radius: 10px;
+            font-size: 0.88rem; font-weight: 600;
+            z-index: 999; opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show { opacity: 1; }
+
+        @media (max-width: 900px) {
+            .sidebar { width: 60px; }
+            .sidebar-logo span, .menu-item span, .menu-label, .menu-item .badge { display: none; }
+            .main { margin-left: 60px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span>☕</span>
+        <span>V-Cafe Admin</span>
+    </div>
+    <nav class="sidebar-menu">
+        <div class="menu-label">Overview</div>
+        <div class="menu-item active" onclick="showTab('overview')">
+            <span>📊</span><span>Dashboard</span>
+        </div>
+
+        <div class="menu-label">Data</div>
+        <div class="menu-item" id="menu-reservations" onclick="showTab('reservations')">
+            <span>🪑</span><span>Reservations</span>
+            <span class="badge" id="badge-reservations">0</span>
+        </div>
+        <div class="menu-item" id="menu-feedback" onclick="showTab('feedback')">
+            <span>💬</span><span>Feedback</span>
+            <span class="badge" id="badge-feedback">0</span>
+        </div>
+        <div class="menu-item" id="menu-contacts" onclick="showTab('contacts')">
+            <span>✉️</span><span>Contacts</span>
+            <span class="badge" id="badge-contacts">0</span>
+        </div>
+        <div class="menu-item" id="menu-newsletters" onclick="showTab('newsletters')">
+            <span>📧</span><span>Newsletters</span>
+            <span class="badge" id="badge-newsletters">0</span>
+        </div>
+        <div class="menu-item" id="menu-users" onclick="showTab('users')">
+            <span>👤</span><span>Users</span>
+            <span class="badge" id="badge-users">0</span>
+        </div>
+
+        <div class="menu-label">Links</div>
+        <div class="menu-item" onclick="window.open('http://localhost:5000','_blank')">
+            <span>🌐</span><span>View Website</span>
+        </div>
+    </nav>
+</aside>
+
+<!-- Main -->
+<main class="main">
+    <div class="topbar">
+        <div>
+            <h1 id="pageTitle">📊 Dashboard Overview</h1>
+            <div class="meta" id="lastRefresh">Loading data...</div>
+        </div>
+        <button class="refresh-btn" onclick="loadData()">🔄 Refresh</button>
+    </div>
+
+    <div class="content">
+
+        <!-- Stats Grid (always visible) -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card gold">
+                <div class="label">Reservations</div>
+                <span class="icon">🪑</span>
+                <div class="value" id="stat-reservations">–</div>
+            </div>
+            <div class="stat-card green">
+                <div class="label">Feedback</div>
+                <span class="icon">💬</span>
+                <div class="value" id="stat-feedback">–</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="label">Contacts</div>
+                <span class="icon">✉️</span>
+                <div class="value" id="stat-contacts">–</div>
+            </div>
+            <div class="stat-card pink">
+                <div class="label">Newsletters</div>
+                <span class="icon">📧</span>
+                <div class="value" id="stat-newsletters">–</div>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loadingState" class="panel active" style="background:transparent;border:none;">
+            <div class="spinner"><span class="spin-icon">⏳</span> Loading data from database...</div>
+        </div>
+
+        <!-- Overview Panel -->
+        <div class="panel" id="panel-overview"></div>
+
+        <!-- Reservations Panel -->
+        <div class="panel" id="panel-reservations">
+            <div class="panel-header">
+                <h2>🪑 Reservations</h2>
+                <input class="search-box" type="text" placeholder="🔍 Search..." oninput="filterTable('tbl-reservations', this.value)">
+            </div>
+            <div class="table-wrap">
+                <table id="tbl-reservations">
+                    <thead><tr>
+                        <th>#</th><th>Guest Name</th><th>Email</th><th>Phone</th>
+                        <th>Date</th><th>Time</th><th>Guests</th>
+                        <th>Package</th><th>Seating</th><th>Bill</th><th>Submitted</th>
+                    </tr></thead>
+                    <tbody id="tbody-reservations"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Feedback Panel -->
+        <div class="panel" id="panel-feedback">
+            <div class="panel-header">
+                <h2>💬 Feedback</h2>
+                <input class="search-box" type="text" placeholder="🔍 Search..." oninput="filterTable('tbl-feedback', this.value)">
+            </div>
+            <div class="table-wrap">
+                <table id="tbl-feedback">
+                    <thead><tr>
+                        <th>#</th><th>Name</th><th>Email</th><th>Rating</th>
+                        <th>Score</th><th>Visit Freq</th><th>Comments</th><th>Submitted</th>
+                    </tr></thead>
+                    <tbody id="tbody-feedback"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Contacts Panel -->
+        <div class="panel" id="panel-contacts">
+            <div class="panel-header">
+                <h2>✉️ Contact Inquiries</h2>
+                <input class="search-box" type="text" placeholder="🔍 Search..." oninput="filterTable('tbl-contacts', this.value)">
+            </div>
+            <div class="table-wrap">
+                <table id="tbl-contacts">
+                    <thead><tr>
+                        <th>#</th><th>Name</th><th>Email</th><th>Phone</th>
+                        <th>Subject</th><th>Message</th><th>Submitted</th>
+                    </tr></thead>
+                    <tbody id="tbody-contacts"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Newsletters Panel -->
+        <div class="panel" id="panel-newsletters">
+            <div class="panel-header">
+                <h2>📧 Newsletter Subscribers</h2>
+                <input class="search-box" type="text" placeholder="🔍 Search..." oninput="filterTable('tbl-newsletters', this.value)">
+            </div>
+            <div class="table-wrap">
+                <table id="tbl-newsletters">
+                    <thead><tr>
+                        <th>#</th><th>Email Address</th><th>Subscribed On</th>
+                    </tr></thead>
+                    <tbody id="tbody-newsletters"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Users Panel -->
+        <div class="panel" id="panel-users">
+            <div class="panel-header">
+                <h2>👤 Registered Users</h2>
+                <input class="search-box" type="text" placeholder="🔍 Search..." oninput="filterTable('tbl-users', this.value)">
+            </div>
+            <div class="table-wrap">
+                <table id="tbl-users">
+                    <thead><tr>
+                        <th>#</th><th>User ID</th><th>Name</th><th>Email</th>
+                        <th>Phone</th><th>Gender</th><th>Registered On</th>
+                    </tr></thead>
+                    <tbody id="tbody-users"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    let allData = {};
+    let currentTab = 'overview';
+
+    async function loadData() {
+        document.getElementById('loadingState').classList.add('active');
+        try {
+            const res  = await fetch('http://localhost:5000/api/submissions');
+            const json = await res.json();
+            allData = json.data;
+
+            // Update badges & stats
+            const keys = ['reservations','feedback','contacts','newsletters','users'];
+            keys.forEach(k => {
+                const count = (allData[k] || []).length;
+                const el = document.getElementById('badge-' + k);
+                const st = document.getElementById('stat-' + k);
+                if (el) el.textContent = count;
+                if (st) st.textContent = count;
+            });
+
+            // Render tables
+            renderReservations(allData.reservations || []);
+            renderFeedback(allData.feedback || []);
+            renderContacts(allData.contacts || []);
+            renderNewsletters(allData.newsletters || []);
+            renderUsers(allData.users || []);
+
+            const now = new Date().toLocaleString('en-IN');
+            document.getElementById('lastRefresh').textContent = 'Last updated: ' + now;
+            showToast('✅ Data loaded successfully');
+        } catch (e) {
+            document.getElementById('lastRefresh').textContent = '❌ Cannot connect to backend (http://localhost:5000)';
+            showToast('❌ Backend not reachable!');
+        } finally {
+            document.getElementById('loadingState').classList.remove('active');
+        }
+    }
+
+    function fmtDate(iso) {
+        if (!iso) return '—';
+        try { return new Date(iso).toLocaleString('en-IN', { dateStyle:'medium', timeStyle:'short' }); }
+        catch { return iso; }
+    }
+
+    function emptyRow(cols, msg) {
+        return `<tr><td colspan="${cols}" class="empty-state"><div class="icon">📭</div><div>${msg}</div></td></tr>`;
+    }
+
+    function renderReservations(rows) {
+        const tb = document.getElementById('tbody-reservations');
+        if (!rows.length) { tb.innerHTML = emptyRow(11, 'No reservations yet'); return; }
+        tb.innerHTML = rows.map((r, i) => `
+            <tr>
+                <td><span class="tag tag-gold">${i+1}</span></td>
+                <td><strong style="color:#fff">${r.guest_name || '—'}</strong></td>
+                <td>${r.guest_email || '—'}</td>
+                <td>${r.guest_phone || '—'}</td>
+                <td>${r.res_date || '—'}</td>
+                <td>${r.res_time || '—'}</td>
+                <td><span class="tag tag-blue">${r.guest_count || '—'} pax</span></td>
+                <td>${r.dining_package || '—'}</td>
+                <td><span class="tag tag-green">${r.seating_area || '—'}</span></td>
+                <td style="color:#D4AF37;font-weight:700">${r.bill_amount || '—'}</td>
+                <td style="color:#555;font-size:0.78rem">${fmtDate(r.createdAt)}</td>
+            </tr>`).join('');
+    }
+
+    function renderFeedback(rows) {
+        const tb = document.getElementById('tbody-feedback');
+        if (!rows.length) { tb.innerHTML = emptyRow(8, 'No feedback yet'); return; }
+        tb.innerHTML = rows.map((r, i) => {
+            const stars = '⭐'.repeat(Math.min(parseInt(r.rating) || 0, 5));
+            return `<tr>
+                <td><span class="tag tag-green">${i+1}</span></td>
+                <td><strong style="color:#fff">${r.name || '—'}</strong></td>
+                <td>${r.email || '—'}</td>
+                <td><span class="stars">${stars}</span></td>
+                <td><span class="tag tag-blue">${r.satisfaction_score || '—'}/10</span></td>
+                <td>${r.visit_frequency || '—'}</td>
+                <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.comments || ''}">${r.comments || '—'}</td>
+                <td style="color:#555;font-size:0.78rem">${fmtDate(r.createdAt)}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    function renderContacts(rows) {
+        const tb = document.getElementById('tbody-contacts');
+        if (!rows.length) { tb.innerHTML = emptyRow(7, 'No contact inquiries yet'); return; }
+        const subjectMap = { general:'General', catering:'Catering', franchise:'Franchise', feedback:'Feedback' };
+        tb.innerHTML = rows.map((r, i) => `
+            <tr>
+                <td><span class="tag tag-blue">${i+1}</span></td>
+                <td><strong style="color:#fff">${r.name || '—'}</strong></td>
+                <td>${r.email || '—'}</td>
+                <td>${r.phone || '—'}</td>
+                <td><span class="tag tag-gold">${subjectMap[r.subject] || r.subject || '—'}</span></td>
+                <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.message || ''}">${r.message || '—'}</td>
+                <td style="color:#555;font-size:0.78rem">${fmtDate(r.createdAt)}</td>
+            </tr>`).join('');
+    }
+
+    function renderNewsletters(rows) {
+        const tb = document.getElementById('tbody-newsletters');
+        if (!rows.length) { tb.innerHTML = emptyRow(3, 'No subscribers yet'); return; }
+        tb.innerHTML = rows.map((r, i) => `
+            <tr>
+                <td><span class="tag tag-pink">${i+1}</span></td>
+                <td style="color:#fff">${r.email || '—'}</td>
+                <td style="color:#555;font-size:0.78rem">${fmtDate(r.createdAt)}</td>
+            </tr>`).join('');
+    }
+
+    function renderUsers(rows) {
+        const tb = document.getElementById('tbody-users');
+        if (!rows.length) { tb.innerHTML = emptyRow(7, 'No registered users yet'); return; }
+        tb.innerHTML = rows.map((r, i) => `
+            <tr>
+                <td><span class="tag tag-purple">${i+1}</span></td>
+                <td style="font-size:0.78rem;color:#888">${r.userId || '—'}</td>
+                <td><strong style="color:#fff">${r.name || '—'}</strong></td>
+                <td>${r.email || '—'}</td>
+                <td>${r.phone || '—'}</td>
+                <td>${r.gender || '—'}</td>
+                <td style="color:#555;font-size:0.78rem">${fmtDate(r.createdAt)}</td>
+            </tr>`).join('');
+    }
+
+    function showTab(tab) {
+        currentTab = tab;
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+
+        const panelId = tab === 'overview' ? 'statsGrid' : 'panel-' + tab;
+        const panel = document.getElementById('panel-' + tab);
+        if (panel) panel.classList.add('active');
+
+        const menuEl = document.getElementById('menu-' + tab);
+        if (menuEl) menuEl.classList.add('active');
+
+        const titles = {
+            overview:'📊 Dashboard Overview', reservations:'🪑 Reservations',
+            feedback:'💬 Feedback', contacts:'✉️ Contact Inquiries',
+            newsletters:'📧 Newsletter Subscribers', users:'👤 Registered Users'
+        };
+        document.getElementById('pageTitle').textContent = titles[tab] || tab;
+    }
+
+    function filterTable(tableId, query) {
+        const tbl  = document.getElementById(tableId);
+        const rows = tbl.querySelectorAll('tbody tr');
+        const q    = query.toLowerCase();
+        rows.forEach(r => {
+            r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Auto-refresh every 30 seconds
+    loadData();
+    setInterval(loadData, 30000);
+</script>
+</body>
+</html>
